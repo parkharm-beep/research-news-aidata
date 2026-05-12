@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-05-11 AI & Data Daily Report</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f0f4f8; --surface: #ffffff; --surface2: #f8fafc; --border: #e2e8f0;
+  --text: #1a202c; --text-sub: #4a5568; --text-muted: #718096;
+  --pub: #2563eb; --pub-bg: #eff6ff; --pub-border: #bfdbfe;
+  --cross: #059669; --cross-bg: #ecfdf5; --cross-border: #a7f3d0;
+  --global: #7c3aed; --global-bg: #f5f3ff; --global-border: #ddd6fe;
+  --insight-bg: #fffbeb; --insight-border: #f59e0b; --insight-text: #92400e;
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Apple SD Gothic Neo','Noto Sans KR',system-ui,sans-serif; font-size: 15px; line-height: 1.6; padding: 32px 16px 64px; }
+a { color: inherit; text-decoration: none; } a:hover { text-decoration: underline; }
+.container { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+/* 헤더 */
+.header { background: linear-gradient(135deg,#1e3a5f 0%,#1e40af 60%,#4f46e5 100%); border-radius: 14px; padding: 28px 32px; color: #fff; }
+.header-date { font-size: 13px; opacity:.75; letter-spacing:.04em; margin-bottom:6px; }
+.header-title { font-size: 24px; font-weight:700; }
+.header-sub { font-size: 13px; opacity:.7; margin-top:5px; }
+.header-stats { display:flex; gap:24px; margin-top:20px; flex-wrap:wrap; }
+.stat-item { text-align:center; }
+.stat-num { font-size:26px; font-weight:700; }
+.stat-label { font-size:11px; opacity:.7; margin-top:2px; letter-spacing:.03em; }
+
+/* 섹션 헤더 */
+.section-header { display:flex; align-items:center; gap:10px; padding:12px 16px; border-radius:8px; font-size:13px; font-weight:700; letter-spacing:.04em; }
+.section-header.pub    { background:var(--pub-bg);    color:var(--pub);    border-left:3px solid var(--pub); }
+.section-header.cross  { background:var(--cross-bg);  color:var(--cross);  border-left:3px solid var(--cross); }
+.section-header.global { background:var(--global-bg); color:var(--global); border-left:3px solid var(--global); }
+.section-header.trend  { background:#f5f3ff; color:#5b21b6; border-left:3px solid #7c3aed; }
+.section-header.synth  { background:#f1f5f9; color:#334155; border-left:3px solid #64748b; }
+
+/* 뉴스 카드 */
+.news-grid { display:flex; flex-direction:column; gap:14px; }
+.news-card { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); border:1px solid var(--border); overflow:hidden; transition:box-shadow .15s; }
+.news-card:hover { box-shadow:0 4px 20px rgba(0,0,0,.1); }
+.card-top { padding:16px 20px 0; display:flex; align-items:flex-start; gap:12px; }
+.card-num { flex-shrink:0; width:26px; height:26px; border-radius:50%; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; margin-top:2px; }
+.pub  .card-num { background:var(--pub-bg);    color:var(--pub); }
+.cross .card-num { background:var(--cross-bg);  color:var(--cross); }
+.global .card-num { background:var(--global-bg); color:var(--global); }
+.card-title-wrap { flex:1; }
+.card-title { font-size:16px; font-weight:700; line-height:1.4; }
+.card-title a:hover { color:#2563eb; }
+.card-meta { margin-top:5px; font-size:12px; color:var(--text-muted); display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+.meta-outlet { font-weight:600; }
+.card-body { padding:12px 20px 16px 58px; }
+.card-tags { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:10px; }
+.tag { font-size:11px; padding:2px 8px; border-radius:20px; border:1px solid var(--border); background:var(--surface2); color:var(--text-sub); white-space:nowrap; }
+.card-summary { font-size:14px; color:var(--text-sub); line-height:1.65; margin-bottom:10px; }
+.card-insight { background:var(--insight-bg); border-left:3px solid var(--insight-border); border-radius:0 6px 6px 0; padding:9px 12px; font-size:13px; color:var(--insight-text); line-height:1.55; }
+
+/* 트렌드 */
+.trend-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:14px; }
+.trend-card { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow-sm); border:1px solid var(--border); padding:16px 18px; }
+.trend-top { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:8px; }
+.trend-name { font-size:15px; font-weight:700; line-height:1.35; }
+.status-badge { flex-shrink:0; font-size:11px; font-weight:700; padding:3px 9px; border-radius:20px; white-space:nowrap; }
+.status-badge.emerging  { background:#fef3c7; color:#d97706; }
+.status-badge.active    { background:#d1fae5; color:#059669; }
+.status-badge.declining { background:#f3f4f6; color:#9ca3af; }
+.trend-desc { font-size:13px; color:var(--text-sub); line-height:1.6; margin-bottom:8px; }
+.trend-insight { font-size:12px; color:var(--insight-text); background:var(--insight-bg); border-radius:5px; padding:7px 10px; line-height:1.5; }
+.trend-articles { margin-top:8px; font-size:11px; color:var(--text-muted); }
+
+/* 종합 분석 */
+.synthesis { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); border:1px solid var(--border); padding:22px 24px; font-size:14px; color:var(--text-sub); line-height:1.8; }
+.synthesis h3 { font-size:14px; font-weight:700; color:var(--text); margin:16px 0 6px; }
+.synthesis h3:first-child { margin-top:0; }
+.synthesis p { margin-bottom:8px; }
+.synthesis strong { color:var(--text); }
+.footer { text-align:center; font-size:12px; color:var(--text-muted); margin-top:8px; }
+
+@media(max-width:600px) {
+  .header-stats { gap:12px; } .stat-num { font-size:20px; }
+  .card-body { padding-left:20px; } .card-num { display:none; }
+  .trend-grid { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- 헤더 -->
+<div class="header">
+  <div class="header-date">2026년 5월 11일 월요일</div>
+  <div class="header-title">AI &amp; Data Daily Report</div>
+  <div class="header-sub">큐레이터: Claude AI · 수집 범위: 2026-05-10 09:00 ~ 2026-05-11 09:00</div>
+  <div class="header-stats">
+    <div class="stat-item"><div class="stat-num">10</div><div class="stat-label">수집 기사</div></div>
+    <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">공공데이터</div></div>
+    <div class="stat-item"><div class="stat-num">4</div><div class="stat-label">AI×데이터</div></div>
+    <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">글로벌</div></div>
+    <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">트렌드 감지</div></div>
+  </div>
+</div>
+
+<!-- 국내 공공데이터 × AI -->
+<div>
+  <div class="section-header pub">🏛️ 국내 공공데이터 × AI</div>
+  <div class="news-grid" style="margin-top:12px">
+
+    <div class="news-card pub">
+      <div class="card-top">
+        <div class="card-num">1</div>
+        <div class="card-title-wrap">
+          <div class="card-title"><a href="https://www.etnews.com/20260106000048" target="_blank">행안부, 의료영상 등 'AI·고가치 공공데이터' 100선 개방…AI 3대 강국 시동</a></div>
+          <div class="card-meta"><span class="meta-outlet">전자신문</span><span class="meta-dot">·</span><span>2026-01-06</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag">공공데이터개방</span><span class="tag">AI학습데이터</span><span class="tag">데이터거버넌스</span></div>
+        <div class="card-summary">행정안전부가 제5차 공공데이터 기본계획(2026~2028)을 확정하고, 재난안전·보건의료·교통 등 11개 분야 'AI·고가치 공공데이터 TOP 100'을 선정·개방했다. 의료영상·산업재해 데이터 등 AI 개발 수요가 높은 데이터를 3년간 단계적으로 개방하며, 'AI-Ready 공공데이터' 품질 기준을 2026년부터 시행한다.</div>
+        <div class="card-insight">AI 모델 품질이 학습 데이터 품질에 종속됨을 정부가 공식 인정한 정책 전환점. 민간 AI 서비스 개발 비용 절감과 공공데이터 경제적 가치 극대화를 동시 추구.</div>
+      </div>
+    </div>
+
+    <div class="news-card pub">
+      <div class="card-top">
+        <div class="card-num">2</div>
+        <div class="card-title-wrap">
+          <div class="card-title"><a href="https://www.mt.co.kr/future/2026/05/07/2026050718395633217" target="_blank">업스테이지, 포털 '다음' 인수 확정…자체 LLM 엮어 AI 포털 만든다</a></div>
+          <div class="card-meta"><span class="meta-outlet">머니투데이</span><span class="meta-dot">·</span><span>2026-05-07</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag">AI포털</span><span class="tag">LLM활용</span><span class="tag">검색데이터</span></div>
+        <div class="card-summary">업스테이지가 카카오로부터 포털 '다음' 운영사 AXZ를 인수 확정했다. 자체 개발 LLM '솔라'를 다음의 검색 엔진·콘텐츠 데이터와 결합해 단순 키워드 검색을 넘어 의도·맥락을 이해하는 'AI 포털'로 전환할 계획이다. 카카오가 다음을 합병한 지 12년 만의 사업 분리.</div>
+        <div class="card-insight">포털의 방대한 검색 로그·뉴스·콘텐츠 데이터가 LLM 파인튜닝·RAG의 핵심 자산으로 재조명됨. AI 포털 경쟁력은 알고리즘보다 데이터 자산의 질과 활용에 달려있음.</div>
+      </div>
+    </div>
+
+    <div class="news-card pub">
+      <div class="card-top">
+        <div class="card-num">3</div>
+        <div class="card-title-wrap">
+          <div class="card-title"><a href="https://www.korea.kr/news/policyNewsView.do?newsId=148955531" target="_blank">AI 학습데이터, 기업들 걱정 없이 쓴다…정부, AI 규제합리화 로드맵 발표</a></div>
+          <div class="card-meta"><span class="meta-outlet">대한민국 정책브리핑</span><span class="meta-dot">·</span><span>2026-05-11</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag">AI규제</span><span class="tag">공공데이터개방</span><span class="tag">AI학습데이터</span></div>
+        <div class="card-summary">25개 부처 합동 67개 과제 담은 'AI 규제합리화 로드맵' 시행 중. 공공저작물 AI 학습 전면 허용, 저작권 공정이용 가이드라인 마련. 인공지능기본법(2026년 1월 시행)과 연계해 AI 학습 데이터의 법적 불확실성 제도적 해소.</div>
+        <div class="card-insight">AI 학습 데이터의 법적 리스크가 기업 AI 개발의 최대 장벽이었으나 정부가 제도적으로 해소. 데이터 가용성이 AI 혁신 속도의 핵심 변수임을 정책이 인정.</div>
+      </div>
+    </div>
+
+    <div class="news-card pub">
+      <div class="card-top">
+        <div class="card-num">4</div>
+        <div class="card-title-wrap">
+          <div class="card-title"><a href="https://www.korea.kr/briefing/pressReleaseView.do?newsId=156742576" target="_blank">「2026 인공지능(AI) 프라이버시 민·관 정책협의회」 출범</a></div>
+          <div class="card-meta"><span class="meta-outlet">대한민국 정책브리핑</span><span class="meta-dot">·</span><span>2026-05-11</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag">AI프라이버시</span><span class="tag">데이터거버넌스</span><span class="tag">AI규제</span></div>
+        <div class="card-summary">개인정보보호위원회 주도로 AI 프라이버시 민·관 정책협의회 출범. AI 서비스의 개인정보 수집·활용, 자동화 의사결정 설명의무, 얼굴인식 등 고위험 AI 데이터 처리 기준을 논의한다. 인공지능기본법과 연계해 AI 데이터 거버넌스 제도화 가속.</div>
+        <div class="card-insight">AI의 개인데이터 처리 규모 증가로 데이터 거버넌스가 기업의 법적 리스크 관리 핵심 과제로 부상. 제도화 속도가 기술 발전을 따라가려는 시도.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- AI × 데이터 교차 -->
+<div>
+  <div class="section-header cross">🌐 AI × 데이터 교차</div>
+  <div class="news-grid" style="margin-top:12px">
+
+    <div class="news-card cross">
+      <div class="card-top">
+        <div class="card-num">5</div>
+        <div class="card-title-wrap">
+          <div class="card-title"><a href="https://newsroom.ibm.com/2026-05-05-think-2026-ibm-delivers-the-blueprint-for-the-ai-operating-model-as-the-ai-divide-widens" target="_blank">IBM Think 2026: AI 운영 모델 청사진 공개…실시간 데이터 결합이 핵심</a></div>
+          <div class="card-meta"><span class="meta-outlet">IBM Newsroom</span><span class="meta-dot">·</span><span>2026-05-05</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag">AI에이전트</span><span class="tag">실시간데이터</span><span class="tag">엔터프라이즈AI</span></div>
+        <div class="card-summary">IBM Think 2026에서 watsonx Orchestrate(멀티에이전트 오케스트레이션), IBM Confluent(실시간 데이터 스트리밍), IBM Concert(지능형 운영 플랫폼)를 동시 발표했다. 'AI Divide'가 심화되는 상황에서 데이터 파이프라인 현대화가 AI 경쟁력의 핵심이라고 강조. AI-ready data foundation 보고서도 함께 공개.</div>
+        <div class="card-insight">멀티에이전트 오케스트레이션 + 실시간 데이터 통합이 엔터프라이즈 AI의 표준 아키텍처로 부상. 데이터 통합 레이어 없이는 AI 에이전트 전략 자체가 공허함.</div>
+      </div>
+    </div>
+
+    <div class="news-card cross">
+      <div class="card-top">
+        <div class="card-num">6</div>
+        <div class="card-title-wrap">
+          <div class="card-title"><a href="https://newsroom.servicenow.com/press-releases/details/2026/ServiceNow-expands-AI-Control-Tower-to-discover-observe-govern-secure-and-measure-AI-deployed-across-any-system-in-the-enterprise/default.aspx" target="_blank">ServiceNow, AI Control Tower 전면 확장…에이전트 킬스위치까지 탑재</a></div>
+          <div class="card-meta"><span class="meta-outlet">ServiceNow Newsroom</span><span class="meta-dot">·</span><span>2026-05-05</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag">AI에이전트</span><span class="tag">AI거버넌스</span><span class="tag">엔터프라이즈AI</span></div>
+        <div class="card-summary">Knowledge 2026에서 AI Control Tower를 '발견-관찰-거버넌스-보안-측정' 5단계 프레임워크로 확장. AWS·GCP·Azure·SAP·Oracle 등 30개 시스템의 AI 에이전트를 통합 관제하며, 비정상 에이전트 즉시 중단(Kill Switch) 기능과 Microsoft Agent 365 통합을 추가.</div>
+        <div class="card-insight">에이전트 스프롤(Agent Sprawl) 대응으로 에이전트 데이터 접근 권한의 통합 제어가 AI 보안의 새 축으로 부상. 에이전트 거버넌스 플랫폼이 새로운 엔터프라이즈 AI 시장으로 형성 중.</div>
+      </div>
+    </div>
+
+    <div class="news-card cross">
+      <div class="card-top">
+        <div class="card-num">7</div>
+        <div class="card-title-wrap">
+          <div class="card-title"><a href="https://www.koreaiin.com/news/900887" target="_blank">EU, 교육 분야 AI 윤리 지침 2026년판…GDPR·AI법 결합한 최초 문서</a></div>
+          <div class="card-meta"><span class="meta-outlet">한국IT산업뉴스</span><span class="meta-dot">·</span><span>2026-05-11</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag">AI윤리</span><span class="tag">GDPR</span><span class="tag">데이터거버넌스</span></div>
+        <div class="card-summary">EU 집행위원회가 교육 분야 AI·데이터 윤리적 사용 지침 2026년판을 발표했다. EU AI 법과 GDPR의 법적 요건을 윤리적 고려사항과 결합한 최초의 문서로, 학생 데이터의 AI 활용 기준과 고위험 AI 시스템의 투명성·설명 의무를 명시.</div>
+        <div class="card-insight">AI와 개인정보 보호 규제의 교차점이 교육 분야에서 먼저 제도화. 민감 데이터를 다루는 모든 산업 분야로 확산될 규제 선례 형성 중.</div>
+      </div>
+    </div>
+
+    <div class="news-card cross">
+      <div class="card-top">
+        <div class="card-num">8</div>
+        <div class="card-title-wrap">
+          <div class="card-title"><a href="https://writer.com/blog/enterprise-ai-adoption-2026/" target="_blank">기업 79% AI 도입 어려움…투자는 늘었지만 데이터 준비 7%뿐</a></div>
+          <div class="card-meta"><span class="meta-outlet">Writer</span><span class="meta-dot">·</span><span>2026-05-08</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag">엔터프라이즈AI</span><span class="tag">데이터준비도</span><span class="tag">데이터거버넌스</span></div>
+        <div class="card-summary">2026 Enterprise AI 도입 보고서: 79%가 AI 도입에 어려움(전년比 +12%p), 59%는 연간 100만 달러 이상 투자. AI-ready 데이터 보유 기업은 7%에 불과. 주요 장벽 1위 데이터 품질, 2위 거버넌스 미비, 3위 레거시 시스템.</div>
+        <div class="card-insight">AI 예산을 늘릴수록 데이터 준비 부족의 벽이 더 뚜렷해지는 역설. 투자 대비 성과의 핵심 변수는 알고리즘이 아닌 데이터 파이프라인.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 글로벌 AI 인프라 -->
+<div>
+  <div class="section-header global">🌍 글로벌 AI 인프라·거버넌스</div>
+  <div class="news-grid" style="margin-top:12px">
+
+    <div class="news-card global">
+      <div class="card-top">
+        <div class="card-num">9</div>
+        <div class="card-title-wrap">
+          <div class="card-title"><a href="https://www.globenewswire.com/news-release/2026/05/05/3288006/0/en/AI-Investment-Activity-to-Surpass-650-Billion-Annually-as-Enterprise-Adoption-Accelerates-Toward-2026.html" target="_blank">AI 글로벌 연간 투자 6,500억 달러 돌파…기업 도입률 22%→40% 급성장</a></div>
+          <div class="card-meta"><span class="meta-outlet">GlobeNewswire</span><span class="meta-dot">·</span><span>2026-05-05</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag">AI투자</span><span class="tag">AI인프라</span><span class="tag">엔터프라이즈AI</span></div>
+        <div class="card-summary">2026년 AI 분야 글로벌 연간 투자가 6,500억 달러를 돌파했다. 하이퍼스케일러 4사(Microsoft 1,150억·Amazon 1,250억·Alphabet 950억·Meta 800억 달러)의 AI 인프라 투자가 급증을 견인했으며, 기업 AI 도입률은 22%에서 40%로 두 배 가까이 성장.</div>
+        <div class="card-insight">AI 투자 무게중심이 모델 개발에서 인프라·클라우드 데이터 레이어로 이동. 데이터 처리 인프라가 AI 경쟁력의 물리적 기반으로 확정됨.</div>
+      </div>
+    </div>
+
+    <div class="news-card global">
+      <div class="card-top">
+        <div class="card-num">10</div>
+        <div class="card-title-wrap">
+          <div class="card-title"><a href="https://nvidianews.nvidia.com/news/nvidia-and-iren-announce-strategic-partnership-to-accelerate-deployment-of-up-to-5-gigawatts-of-ai-infrastructure" target="_blank">NVIDIA·IREN, 5GW AI 인프라 전략적 파트너십…원전 5기 규모 전력 요구</a></div>
+          <div class="card-meta"><span class="meta-outlet">NVIDIA Newsroom</span><span class="meta-dot">·</span><span>2026-05-09</span></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-tags"><span class="tag">AI인프라</span><span class="tag">데이터센터</span><span class="tag">AI투자</span></div>
+        <div class="card-summary">NVIDIA와 IREN이 차세대 AI 인프라 구축을 위한 전략적 파트너십을 발표했다. IREN의 글로벌 데이터센터 파이프라인에 최대 5GW 규모의 NVIDIA DSX 기반 AI 인프라를 배치하는 것이 목표. NVIDIA의 데이터센터 파트너 직접 투자 수직 통합 전략의 연장선.</div>
+        <div class="card-insight">5GW는 원전 5기 규모의 전력 용량. AI 데이터 처리 수요가 에너지 인프라 수준의 거대 물리 자산을 요구하는 단계로 진입. 데이터 처리 경쟁이 전력·공간이라는 물리 자원 확보 경쟁으로 전환.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 트렌드 -->
+<div>
+  <div class="section-header trend">📈 오늘의 트렌드</div>
+  <div class="trend-grid" style="margin-top:12px">
+
+    <div class="trend-card">
+      <div class="trend-top">
+        <div class="trend-name">공공데이터 AI-Ready화</div>
+        <span class="status-badge emerging">emerging</span>
+      </div>
+      <div class="trend-desc">정부가 공공데이터를 AI 학습 인프라로 재정의하고 품질 기준을 갖춘 AI-Ready 데이터를 체계적으로 개방하는 흐름.</div>
+      <div class="trend-insight">한국 AI 경쟁력의 새로운 축. 공공데이터 품질이 민간 AI 서비스 품질을 결정.</div>
+      <div class="trend-articles">📰 관련 기사 3건 (뉴스 1·3·4)</div>
+    </div>
+
+    <div class="trend-card">
+      <div class="trend-top">
+        <div class="trend-name">AI 에이전트 거버넌스</div>
+        <span class="status-badge emerging">emerging</span>
+      </div>
+      <div class="trend-desc">다수 AI 에이전트 확산(에이전트 스프롤)에 대응하는 통합 거버넌스 레이어가 새로운 엔터프라이즈 AI 시장으로 부상.</div>
+      <div class="trend-insight">에이전트 데이터 접근 권한·흐름 제어가 AI 보안의 새 축으로 부상.</div>
+      <div class="trend-articles">📰 관련 기사 2건 (뉴스 5·6)</div>
+    </div>
+
+    <div class="trend-card">
+      <div class="trend-top">
+        <div class="trend-name">데이터 거버넌스 부채</div>
+        <span class="status-badge emerging">emerging</span>
+      </div>
+      <div class="trend-desc">AI 도입 속도와 데이터 거버넌스 성숙도의 간극이 구조적으로 축적. AI 준비된 기업 7% 수치가 반복 등장.</div>
+      <div class="trend-insight">AI 예산 증가와 무관하게 데이터 준비 부족이 ROI 저하의 직접 원인으로 가시화.</div>
+      <div class="trend-articles">📰 관련 기사 3건 (뉴스 7·8·4)</div>
+    </div>
+
+    <div class="trend-card">
+      <div class="trend-top">
+        <div class="trend-name">AI 인프라 투자 폭발</div>
+        <span class="status-badge active">active</span>
+      </div>
+      <div class="trend-desc">AI 투자 무게중심이 모델 개발에서 데이터센터·전력·광섬유 물리 인프라로 이동. 6,500억 달러 + 5GW.</div>
+      <div class="trend-insight">데이터 처리 능력 경쟁이 소프트웨어에서 물리 자원 확보 경쟁으로 전환 중.</div>
+      <div class="trend-articles">📰 관련 기사 2건 (뉴스 9·10)</div>
+    </div>
+
+    <div class="trend-card">
+      <div class="trend-top">
+        <div class="trend-name">AI 에이전트화</div>
+        <span class="status-badge active">active</span>
+      </div>
+      <div class="trend-desc">AI가 단순 챗봇에서 멀티에이전트 오케스트레이션 + 실시간 데이터 결합으로 진화하는 엔터프라이즈 AI 표준 패턴.</div>
+      <div class="trend-insight">에이전트 성능은 실시간 데이터 파이프라인 품질에 종속.</div>
+      <div class="trend-articles">📰 관련 기사 2건 (뉴스 5·6)</div>
+    </div>
+
+    <div class="trend-card">
+      <div class="trend-top">
+        <div class="trend-name">AI 격차 = 데이터 격차</div>
+        <span class="status-badge active">active</span>
+      </div>
+      <div class="trend-desc">국가·기업 간 AI 활용 능력의 차이가 결국 데이터 접근성과 인프라 수준의 차이로 귀결되는 현상.</div>
+      <div class="trend-insight">공공데이터 개방이 AI 격차 해소의 제도적 레버가 될 수 있음.</div>
+      <div class="trend-articles">📰 관련 기사 2건 (뉴스 1·3)</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 종합 분석 -->
+<div>
+  <div class="section-header synth">🔍 종합 분석</div>
+  <div class="synthesis" style="margin-top:12px">
+    <p>오늘의 10개 기사가 수렴하는 하나의 메시지: <strong>"AI의 경쟁력은 데이터 인프라다."</strong></p>
+    <h3>🇰🇷 한국 관점</h3>
+    <p>정부가 공공데이터를 AI 학습 인프라로 재정의하고 제도적으로 개방하는 전략을 공식화했다. 행안부의 공공데이터 TOP 100 개방, AI 규제합리화 로드맵, AI 프라이버시 협의회가 동시에 움직이는 것은 구조적 신호다. 업스테이지의 '다음' 인수는 포털 데이터 자산이 LLM 시대의 핵심 경쟁력임을 민간이 인식했다는 증거다.</p>
+    <h3>🌐 글로벌 관점</h3>
+    <p>IBM·ServiceNow의 에이전트 거버넌스 경쟁, NVIDIA의 5GW 인프라 파트너십, 6,500억 달러 투자가 같은 주에 발표됐다. AI가 '소프트웨어의 전쟁'에서 '데이터와 물리 인프라의 전쟁'으로 전환되는 구조적 변화가 수치로 확인된다.</p>
+    <h3>🔗 교차점</h3>
+    <p>한국의 공공데이터 AI-Ready화 전략이 성공하려면 글로벌 표준(GDPR, EU AI 법, 에이전트 거버넌스 프레임워크)과의 정합성이 필요하다. 개방된 공공데이터의 실질적 AI-Ready 수준, 즉 단순 공개를 넘어 품질·포맷·메타데이터 표준화 여부가 향후 핵심 관전 포인트다.</p>
+  </div>
+</div>
+
+<div class="footer">Generated by Claude AI · 2026-05-11 AI &amp; Data Daily Report</div>
+</div>
+</body>
+</html>

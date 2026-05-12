@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:gist.github.com)",
+      "PowerShell(Head 30)",
+      "WebSearch",
+      "PowerShell(Get-ChildItem \"g:\\\\내 드라이브\\\\개인자료\\\\리서치\\\\AIData_News\" -Recurse -File | Select-Object @{N='경로';E={$_.FullName.Replace\\(\"g:\\\\내 드라이브\\\\개인자료\\\\리서치\\\\AIData_News\\\\\",\"\"\\)}} | Sort-Object 경로)",
+      "PowerShell(Get-ChildItem \"g:\\\\내 드라이브\\\\개인자료\\\\리서치\\\\AIData_News\" -Recurse -File | ForEach-Object { $_.FullName.Replace\\(\"g:\\\\내 드라이브\\\\개인자료\\\\리서치\\\\AIData_News\\\\\",\"\"\\) })",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(pip install *)"
+    ]
+  }
+}

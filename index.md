@@ -1,0 +1,44 @@
+# AI & Data News Wiki — Index
+
+> 전체 보고서 및 Wiki 페이지 카탈로그. INGEST 작업마다 자동 업데이트.
+> 확인 상태: ✅ 확인 | 🔄 갱신됨(재확인 필요) | (없음) 미확인
+
+---
+
+## 일일 보고서
+
+| 날짜 | 파일 | 주요 키워드 | 확인 |
+|------|------|------------|------|
+| 2026-05-12 | [reports/2026-05-12.md](reports/2026-05-12.md) · [graph](reports/2026-05-12.html) | 삼성SDS국가AI컴퓨팅센터, 중기부OpenData챌린지, 클라우데라제로카피, HPE에이전틱AI, 지식그래프GraphRAG | |
+| 2026-05-11 | [reports/2026-05-11.md](reports/2026-05-11.md) · [graph](reports/2026-05-11.html) | 공공데이터TOP100, 업스테이지다음, AI규제합리화, IBM Think, ServiceNow, EU윤리지침, AI투자6500억 | |
+
+---
+
+## Wiki 페이지
+
+### 주제 (topics/)
+| 페이지 | 최근 업데이트 | 관련 보고서 수 | 확인 |
+|--------|--------------|---------------|------|
+| [공공데이터×AI활용](wiki/topics/공공데이터-AI활용.md) | 2026-05-11 | 1 | |
+| [한국 AI 규제·법제](wiki/topics/한국AI규제-법제.md) | 2026-05-11 | 1 | |
+| [AI 프라이버시](wiki/topics/AI프라이버시.md) | 2026-05-11 | 1 | |
+| [AI 윤리·GDPR](wiki/topics/AI윤리-GDPR.md) | 2026-05-11 | 1 | |
+| [AI 인프라·데이터센터](wiki/topics/AI인프라-데이터센터.md) | 2026-05-11 | 1 | |
+| [데이터 거버넌스](wiki/topics/데이터거버넌스.md) | 2026-05-11 | 1 | |
+| [AI 에이전트·실시간 데이터](wiki/topics/AI에이전트-실시간데이터.md) | 2026-05-11 | 1 | |
+| [반도체](wiki/topics/반도체.md) | 2026-05-11 | 1 | |
+| [AI 투자](wiki/topics/AI투자.md) | 2026-05-11 | 1 | |
+| [디지털 격차·AI 확산](wiki/topics/디지털격차-AI확산.md) | 2026-05-11 | 1 | |
+| [에너지·규제 리스크](wiki/topics/에너지-규제리스크.md) | 2026-05-11 | 1 | |
+
+### 트렌드 (trends/)
+| 트렌드 | 상태 | 최근 업데이트 | 확인 |
+|--------|------|--------------|------|
+| [지식그래프·GraphRAG 부상](wiki/trends/지식그래프-GraphRAG.md) | emerging | 2026-05-12 | |
+| [제로 카피 AI 아키텍처](wiki/trends/제로카피-AI아키텍처.md) | emerging | 2026-05-12 | |
+| [공공데이터 AI-Ready화](wiki/trends/공공데이터-AI-Ready화.md) | active | 2026-05-12 | |
+| [AI 에이전트 거버넌스](wiki/trends/AI에이전트거버넌스.md) | emerging | 2026-05-11 | |
+| [AI 인프라 투자 폭발](wiki/trends/AI인프라투자폭발.md) | active | 2026-05-11 | |
+| [데이터 거버넌스 부채](wiki/trends/데이터거버넌스부채.md) | emerging | 2026-05-11 | |
+| [AI 격차 = 데이터 격차](wiki/trends/AI격차-데이터격차.md) | active | 2026-05-11 | |
+| [AI 에이전트화](wiki/trends/AI에이전트화.md) | active | 2026-05-11 | |

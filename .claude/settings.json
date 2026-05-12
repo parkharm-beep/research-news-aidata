@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(gh api *)",
+      "WebFetch(domain:venturebeat.com)",
+      "Bash(claude plugin *)",
+      "PowerShell(Get-ChildItem \"$env:USERPROFILE\\\\.claude\\\\plugins\\\\\" -Recurse | Select-Object FullName)",
+      "PowerShell(Get-ChildItem \"$env:USERPROFILE\\\\.claude\\\\\" | Select-Object Name, LastWriteTime)",
+      "Read(//c/Users/parkh/.claude/**)",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\parkh\\\\.claude\\\\plugins\\\\cache\\\\claude-plugins-official\\\\claude-md-management\\\\\" -Recurse -Force | ForEach-Object { $_.FullName })",
+      "Bash(Get-ChildItem \"g:\\\\내 드라이브\\\\개인자료\\\\리서치\\\\AIData_News\" -Name)"
+    ]
+  }
+}

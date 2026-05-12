@@ -1,0 +1,207 @@
+{
+  "main": {
+    "id": "e1496f9104c93752",
+    "type": "split",
+    "children": [
+      {
+        "id": "4b06e0a73a81b7a5",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "65ee9f242a66b1c4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "index.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "index"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e81fc97009b05e8f",
+    "type": "split",
+    "children": [
+      {
+        "id": "db471fa358e12339",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "60cab289103bc55a",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "파일 탐색기"
+            }
+          },
+          {
+            "id": "fc20f54224e6e841",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "검색"
+            }
+          },
+          {
+            "id": "e58f8ecd0f982d7f",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "북마크"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "caa7012c37282b2d",
+    "type": "split",
+    "children": [
+      {
+        "id": "2b8ab835ebb05707",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "af52cd71ad10f28a",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "wiki/topics/공공데이터-AI활용.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "공공데이터-AI활용 의 백링크"
+            }
+          },
+          {
+            "id": "a38aa1d3c7cfbf72",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "wiki/topics/공공데이터-AI활용.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "공공데이터-AI활용 의 나가는 링크"
+            }
+          },
+          {
+            "id": "f10977f6bec346a2",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "태그"
+            }
+          },
+          {
+            "id": "2f9650b2c1a4dfc3",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "모든 속성"
+            }
+          },
+          {
+            "id": "cf839f970a830f03",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "wiki/topics/공공데이터-AI활용.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "공공데이터-AI활용 의 개요"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:빠른 전환기 열기": false,
+      "graph:그래프 뷰 열기": false,
+      "canvas:새 캔버스 만들기": false,
+      "daily-notes:오늘의 일일 노트 열기": false,
+      "templates:템플릿 삽입": false,
+      "command-palette:명령어 팔레트 열기": false,
+      "bases:새 베이스 생성하기": false
+    }
+  },
+  "active": "65ee9f242a66b1c4",
+  "lastOpenFiles": [
+    "wiki/topics/공공데이터-AI활용.md",
+    "wiki/trends/AI격차-데이터격차.md",
+    "wiki/topics/AI인프라-데이터센터.md",
+    "wiki/trends/데이터거버넌스부채.md",
+    "wiki/topics/디지털격차-AI확산.md",
+    "wiki/trends/AI인프라투자폭발.md",
+    "wiki/trends/공공데이터-AI-Ready화.md",
+    "wiki/topics/한국AI규제-법제.md",
+    "wiki/topics/AI윤리-GDPR.md",
+    "wiki/topics/AI투자.md",
+    "wiki/topics/데이터거버넌스.md",
+    "wiki/trends/AI에이전트화.md",
+    "wiki/topics/반도체.md",
+    "wiki/trends/AI에이전트거버넌스.md",
+    "wiki/topics/AI프라이버시.md",
+    "wiki/topics/에너지-규제리스크.md",
+    "wiki/topics/AI에이전트-실시간데이터.md",
+    "wiki/topics/ai-ethics-gdpr.md"
+  ]
+}

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{DATE}} AI & Data Daily Report</title>
+<style>
+/* ── 리셋 & 베이스 ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:          #f0f4f8;
+  --surface:     #ffffff;
+  --surface2:    #f8fafc;
+  --border:      #e2e8f0;
+  --text:        #1a202c;
+  --text-sub:    #4a5568;
+  --text-muted:  #718096;
+
+  --pub:         #2563eb;   /* 공공데이터 */
+  --pub-bg:      #eff6ff;
+  --pub-border:  #bfdbfe;
+
+  --cross:       #059669;   /* AI×데이터 */
+  --cross-bg:    #ecfdf5;
+  --cross-border:#a7f3d0;
+
+  --global:      #7c3aed;   /* 글로벌 인프라 */
+  --global-bg:   #f5f3ff;
+  --global-border:#ddd6fe;
+
+  --insight-bg:  #fffbeb;
+  --insight-border:#f59e0b;
+  --insight-text:#92400e;
+
+  --emerging:    #d97706;
+  --emerging-bg: #fef3c7;
+  --active:      #059669;
+  --active-bg:   #d1fae5;
+  --declining:   #9ca3af;
+  --declining-bg:#f3f4f6;
+
+  --radius:      10px;
+  --shadow:      0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+  --shadow-sm:   0 1px 2px rgba(0,0,0,.05);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Noto Sans KR', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  padding: 32px 16px 64px;
+}
+
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── 레이아웃 ── */
+.container { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+
+/* ── 헤더 ── */
+.header {
+  background: linear-gradient(135deg, #1e3a5f 0%, #1e40af 60%, #4f46e5 100%);
+  border-radius: 14px;
+  padding: 28px 32px;
+  color: #fff;
+}
+.header-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.header-date { font-size: 13px; opacity: .75; letter-spacing: .04em; margin-bottom: 6px; }
+.header-title { font-size: 24px; font-weight: 700; line-height: 1.3; }
+.header-sub { font-size: 13px; opacity: .7; margin-top: 6px; }
+.header-stats { display: flex; gap: 20px; margin-top: 20px; }
+.stat-item { text-align: center; }
+.stat-num { font-size: 26px; font-weight: 700; }
+.stat-label { font-size: 11px; opacity: .7; margin-top: 2px; letter-spacing: .03em; }
+
+/* ── 섹션 헤더 ── */
+.section-header {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 13px; font-weight: 700; letter-spacing: .04em;
+}
+.section-header.pub    { background: var(--pub-bg);    color: var(--pub);    border-left: 3px solid var(--pub); }
+.section-header.cross  { background: var(--cross-bg);  color: var(--cross);  border-left: 3px solid var(--cross); }
+.section-header.global { background: var(--global-bg); color: var(--global); border-left: 3px solid var(--global); }
+.section-header.trend  { background: #f5f3ff; color: #5b21b6; border-left: 3px solid #7c3aed; }
+.section-header.synthesis { background: #f1f5f9; color: #334155; border-left: 3px solid #64748b; }
+
+/* ── 뉴스 카드 ── */
+.news-grid { display: flex; flex-direction: column; gap: 14px; }
+
+.news-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  transition: box-shadow .15s;
+}
+.news-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.1); }
+
+.card-top {
+  padding: 16px 20px 0;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.card-num {
+  flex-shrink: 0;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 2px;
+}
+.pub .card-num    { background: var(--pub-bg);    color: var(--pub); }
+.cross .card-num  { background: var(--cross-bg);  color: var(--cross); }
+.global .card-num { background: var(--global-bg); color: var(--global); }
+
+.card-title-wrap { flex: 1; }
+.card-title {
+  font-size: 16px; font-weight: 700; line-height: 1.4; color: var(--text);
+}
+.card-title a:hover { color: #2563eb; }
+.card-meta { margin-top: 5px; font-size: 12px; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.meta-outlet { font-weight: 600; }
+.meta-dot { opacity: .4; }
+
+.card-body { padding: 12px 20px 16px 58px; }
+.card-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.tag {
+  font-size: 11px; padding: 2px 8px; border-radius: 20px;
+  border: 1px solid var(--border); background: var(--surface2); color: var(--text-sub);
+  white-space: nowrap;
+}
+.card-summary { font-size: 14px; color: var(--text-sub); line-height: 1.65; margin-bottom: 10px; }
+.card-insight {
+  background: var(--insight-bg);
+  border-left: 3px solid var(--insight-border);
+  border-radius: 0 6px 6px 0;
+  padding: 9px 12px;
+  font-size: 13px; color: var(--insight-text); line-height: 1.55;
+}
+.card-insight::before { content: '💡 '; }
+
+/* ── 트렌드 그리드 ── */
+.trend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+
+.trend-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border);
+  padding: 16px 18px;
+}
+.trend-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+.trend-name { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.35; }
+.status-badge {
+  flex-shrink: 0;
+  font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 20px;
+  white-space: nowrap; letter-spacing: .03em;
+}
+.status-badge.emerging  { background: var(--emerging-bg);  color: var(--emerging); }
+.status-badge.active    { background: var(--active-bg);    color: var(--active); }
+.status-badge.declining { background: var(--declining-bg); color: var(--declining); }
+.trend-desc { font-size: 13px; color: var(--text-sub); line-height: 1.6; margin-bottom: 8px; }
+.trend-insight { font-size: 12px; color: var(--insight-text); background: var(--insight-bg); border-radius: 5px; padding: 7px 10px; line-height: 1.5; }
+.trend-articles { margin-top: 8px; font-size: 11px; color: var(--text-muted); }
+
+/* ── 종합 분석 ── */
+.synthesis {
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  padding: 22px 24px;
+  font-size: 14px; color: var(--text-sub); line-height: 1.8;
+}
+.synthesis h3 { font-size: 14px; font-weight: 700; color: var(--text); margin: 16px 0 6px; }
+.synthesis h3:first-child { margin-top: 0; }
+.synthesis p { margin-bottom: 8px; }
+.synthesis strong { color: var(--text); }
+
+/* ── 푸터 ── */
+.footer { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+
+@media (max-width: 600px) {
+  .header-stats { gap: 12px; }
+  .stat-num { font-size: 20px; }
+  .card-body { padding-left: 20px; }
+  .card-num { display: none; }
+  .trend-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- 헤더 -->
+  <div class="header">
+    <div class="header-top">
+      <div>
+        <div class="header-date">{{DATE}}</div>
+        <div class="header-title">AI & Data Daily Report</div>
+        <div class="header-sub">큐레이터: Claude AI · 수집 범위: 전일 09:00 ~ 금일 09:00</div>
+      </div>
+    </div>
+    <div class="header-stats">
+      <div class="stat-item"><div class="stat-num">{{COUNT_TOTAL}}</div><div class="stat-label">수집 기사</div></div>
+      <div class="stat-item"><div class="stat-num">{{COUNT_PUB}}</div><div class="stat-label">공공데이터</div></div>
+      <div class="stat-item"><div class="stat-num">{{COUNT_CROSS}}</div><div class="stat-label">AI×데이터</div></div>
+      <div class="stat-item"><div class="stat-num">{{COUNT_GLOBAL}}</div><div class="stat-label">글로벌</div></div>
+      <div class="stat-item"><div class="stat-num">{{COUNT_TRENDS}}</div><div class="stat-label">트렌드</div></div>
+    </div>
+  </div>
+
+  <!-- 국내 공공데이터 × AI -->
+  <div>
+    <div class="section-header pub">🏛️ 국내 공공데이터 × AI</div>
+    <div class="news-grid" style="margin-top:12px">
+      {{PUB_CARDS}}
+    </div>
+  </div>
+
+  <!-- AI × 데이터 교차 -->
+  <div>
+    <div class="section-header cross">🌐 AI × 데이터 교차</div>
+    <div class="news-grid" style="margin-top:12px">
+      {{CROSS_CARDS}}
+    </div>
+  </div>
+
+  <!-- 글로벌 AI 인프라 -->
+  <div>
+    <div class="section-header global">🌍 글로벌 AI 인프라·거버넌스</div>
+    <div class="news-grid" style="margin-top:12px">
+      {{GLOBAL_CARDS}}
+    </div>
+  </div>
+
+  <!-- 트렌드 -->
+  <div>
+    <div class="section-header trend">📈 오늘의 트렌드</div>
+    <div class="trend-grid" style="margin-top:12px">
+      {{TREND_CARDS}}
+    </div>
+  </div>
+
+  <!-- 종합 분석 -->
+  <div>
+    <div class="section-header synthesis">🔍 종합 분석</div>
+    <div class="synthesis" style="margin-top:12px">
+      {{SYNTHESIS}}
+    </div>
+  </div>
+
+  <div class="footer">Generated by Claude AI · {{DATE}} AI &amp; Data Daily Report</div>
+</div>
+</body>
+</html>
