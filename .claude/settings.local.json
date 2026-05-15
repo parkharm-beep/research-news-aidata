@@ -8,7 +8,13 @@
       "PowerShell(Get-ChildItem \"g:\\\\내 드라이브\\\\개인자료\\\\리서치\\\\AIData_News\" -Recurse -File | ForEach-Object { $_.FullName.Replace\\(\"g:\\\\내 드라이브\\\\개인자료\\\\리서치\\\\AIData_News\\\\\",\"\"\\) })",
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:github.com)",
-      "Bash(pip install *)"
+      "Bash(pip install *)",
+      "Bash(\"C:\\\\Program Files\\\\Python311\\\\python.exe\" \"g:\\\\내 드라이브\\\\개인자료\\\\리서치\\\\AIData_News\\\\scripts\\\\send_only.py\")",
+      "WebFetch(domain:zdnet.co.kr)",
+      "WebFetch(domain:www.dt.co.kr)",
+      "WebFetch(domain:www.ddaily.co.kr)",
+      "WebFetch(domain:www.etnews.com)",
+      "WebFetch(domain:techcrunch.com)"
     ]
   }
 }

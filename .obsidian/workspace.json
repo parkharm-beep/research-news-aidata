@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "index.md",
+                "file": "raw/5.14 오후 8시  AI 트렌드 무료특강 AI Engineer 현직자가 직접 알려주는 하네스 엔지니어링 A to Z.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "index"
+              "title": "5.14 오후 8시  AI 트렌드 무료특강 AI Engineer 현직자가 직접 알려주는 하네스 엔지니어링 A to Z"
             }
           }
         ]
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 200
   },
   "right": {
     "id": "caa7012c37282b2d",
@@ -185,23 +185,29 @@
   },
   "active": "65ee9f242a66b1c4",
   "lastOpenFiles": [
-    "wiki/topics/공공데이터-AI활용.md",
-    "wiki/trends/AI격차-데이터격차.md",
-    "wiki/topics/AI인프라-데이터센터.md",
-    "wiki/trends/데이터거버넌스부채.md",
-    "wiki/topics/디지털격차-AI확산.md",
-    "wiki/trends/AI인프라투자폭발.md",
-    "wiki/trends/공공데이터-AI-Ready화.md",
-    "wiki/topics/한국AI규제-법제.md",
-    "wiki/topics/AI윤리-GDPR.md",
-    "wiki/topics/AI투자.md",
-    "wiki/topics/데이터거버넌스.md",
-    "wiki/trends/AI에이전트화.md",
-    "wiki/topics/반도체.md",
-    "wiki/trends/AI에이전트거버넌스.md",
-    "wiki/topics/AI프라이버시.md",
+    "index.md",
+    "raw/5.14 오후 8시  AI 트렌드 무료특강 AI Engineer 현직자가 직접 알려주는 하네스 엔지니어링 A to Z.md",
+    "raw",
     "wiki/topics/에너지-규제리스크.md",
+    "wiki/topics/AI투자.md",
     "wiki/topics/AI에이전트-실시간데이터.md",
+    "wiki/topics/AI인프라-데이터센터.md",
+    "wiki/topics/AI프라이버시.md",
+    "wiki/topics/한국AI규제-법제.md",
+    "wiki/topics/공공데이터-AI활용.md",
+    "wiki/topics/피지컬AI-로보틱스.md",
+    "wiki/trends/AI에이전트거버넌스.md",
+    "wiki/trends/공공데이터-AI-Ready화.md",
+    "wiki/trends/지식그래프-GraphRAG.md",
+    "wiki/topics/디지털격차-AI확산.md",
+    "wiki/topics/반도체.md",
+    "wiki/topics/데이터거버넌스.md",
+    "wiki/topics/AI윤리-GDPR.md",
+    "reports/2026-05-12.md",
+    "wiki/trends/AI격차-데이터격차.md",
+    "wiki/trends/데이터거버넌스부채.md",
+    "wiki/trends/AI인프라투자폭발.md",
+    "wiki/trends/AI에이전트화.md",
     "wiki/topics/ai-ethics-gdpr.md"
   ]
 }

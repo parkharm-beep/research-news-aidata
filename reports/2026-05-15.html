@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-05-15 AI & Data Daily Report</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f0f4f8; --surface: #ffffff; --surface2: #f8fafc; --border: #e2e8f0;
+  --text: #1a202c; --text-sub: #4a5568; --text-muted: #718096;
+  --pub: #2563eb; --pub-bg: #eff6ff; --pub-border: #bfdbfe;
+  --cross: #059669; --cross-bg: #ecfdf5; --cross-border: #a7f3d0;
+  --global: #7c3aed; --global-bg: #f5f3ff; --global-border: #ddd6fe;
+  --insight-bg: #fffbeb; --insight-border: #f59e0b; --insight-text: #92400e;
+  --emerging: #d97706; --emerging-bg: #fef3c7;
+  --active: #059669; --active-bg: #d1fae5;
+  --radius: 10px; --shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Pretendard','Apple SD Gothic Neo','Noto Sans KR',system-ui,sans-serif; font-size: 15px; line-height: 1.6; padding: 32px 16px 64px; }
+a { color: inherit; text-decoration: none; } a:hover { text-decoration: underline; }
+.container { max-width: 860px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px; }
+.header { background: linear-gradient(135deg,#1e3a5f 0%,#1e40af 60%,#4f46e5 100%); border-radius: 14px; padding: 28px 32px; color: #fff; }
+.header h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+.header p { font-size: 13px; opacity: .7; }
+.header-stats { display: flex; gap: 20px; margin-top: 18px; }
+.stat { text-align: center; }
+.stat-n { font-size: 24px; font-weight: 700; }
+.stat-l { font-size: 11px; opacity: .7; margin-top: 2px; }
+.sec { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; letter-spacing: .04em; }
+.sec.pub { background: var(--pub-bg); color: var(--pub); border-left: 3px solid var(--pub); }
+.sec.cross { background: var(--cross-bg); color: var(--cross); border-left: 3px solid var(--cross); }
+.sec.global { background: var(--global-bg); color: var(--global); border-left: 3px solid var(--global); }
+.sec.trend { background: #f5f3ff; color: #5b21b6; border-left: 3px solid #7c3aed; }
+.sec.syn { background: #f1f5f9; color: #334155; border-left: 3px solid #64748b; }
+.news-grid { display: flex; flex-direction: column; gap: 14px; }
+.card { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); overflow: hidden; }
+.card-top { padding: 16px 20px 0; display: flex; align-items: flex-start; gap: 12px; }
+.num { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+.pub .num { background: var(--pub-bg); color: var(--pub); }
+.cross .num { background: var(--cross-bg); color: var(--cross); }
+.global .num { background: var(--global-bg); color: var(--global); }
+.tw { flex: 1; }
+.ct { font-size: 16px; font-weight: 700; line-height: 1.4; }
+.cm { margin-top: 5px; font-size: 12px; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 6px; }
+.cb { padding: 12px 20px 16px 58px; }
+.tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+.tag { font-size: 11px; padding: 2px 8px; border-radius: 20px; border: 1px solid var(--border); background: var(--surface2); color: var(--text-sub); }
+.summary { font-size: 14px; color: var(--text-sub); line-height: 1.65; margin-bottom: 10px; }
+.insight { background: var(--insight-bg); border-left: 3px solid var(--insight-border); border-radius: 0 6px 6px 0; padding: 9px 12px; font-size: 13px; color: var(--insight-text); line-height: 1.55; }
+.insight::before { content: '💡 '; }
+.trend-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(280px,1fr)); gap: 14px; }
+.tc { background: var(--surface); border-radius: var(--radius); border: 1px solid var(--border); padding: 16px 18px; }
+.tn { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.badge { display: inline-block; font-size: 11px; font-weight: 700; padding: 2px 9px; border-radius: 20px; margin-left: 6px; }
+.badge.active { background: var(--active-bg); color: var(--active); }
+.badge.emerging { background: var(--emerging-bg); color: var(--emerging); }
+.td { font-size: 13px; color: var(--text-sub); line-height: 1.6; }
+.syn-box { background: var(--surface); border-radius: var(--radius); box-shadow: var(--shadow); border: 1px solid var(--border); padding: 22px 24px; font-size: 14px; color: var(--text-sub); line-height: 1.8; }
+.syn-box h3 { font-size: 14px; font-weight: 700; color: var(--text); margin: 14px 0 6px; }
+.syn-box h3:first-child { margin-top: 0; }
+.footer { text-align: center; font-size: 12px; color: var(--text-muted); margin-top: 8px; }
+@media(max-width:600px){ .cb { padding-left: 20px; } .num { display: none; } .trend-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>📅 2026-05-15 AI &amp; Data Daily Report</h1>
+  <p>큐레이터: Claude AI · 수집 범위: 2026-05-14 09:00 ~ 2026-05-15 09:00</p>
+  <div class="header-stats">
+    <div class="stat"><div class="stat-n">8</div><div class="stat-l">수집 기사</div></div>
+    <div class="stat"><div class="stat-n">2</div><div class="stat-l">공공데이터</div></div>
+    <div class="stat"><div class="stat-n">4</div><div class="stat-l">AI×데이터</div></div>
+    <div class="stat"><div class="stat-n">2</div><div class="stat-l">글로벌</div></div>
+    <div class="stat"><div class="stat-n">4</div><div class="stat-l">트렌드</div></div>
+  </div>
+</div>
+
+<div>
+  <div class="sec pub">🏛️ 국내 공공데이터 × AI</div>
+  <div class="news-grid" style="margin-top:12px">
+
+    <div class="card pub">
+      <div class="card-top">
+        <div class="num">1</div>
+        <div class="tw">
+          <div class="ct"><a href="https://www.etnews.com/20260514000135" target="_blank">AI가 국가 R&amp;D 예산심의 돕는다…'예산심의 특화 AI' 본격 도입</a></div>
+          <div class="cm"><span>전자신문</span><span>·</span><span>2026-05-14 14:00</span><span>·</span><span>과기정통부, 업스테이지, KISTI, ETRI</span></div>
+        </div>
+      </div>
+      <div class="cb">
+        <div class="tags"><span class="tag">공공데이터-AI활용</span><span class="tag">데이터거버넌스</span></div>
+        <div class="summary">과기정통부가 국가 R&amp;D 예산 배분·조정에 특화 AI를 본격 도입했다. 업스테이지 SOLAR 모델 기반으로 KISTI·ETRI가 개발했으며, 5,000개 R&amp;D 사업 데이터·1,243만 건 연구성과 데이터로 학습됐다. 사업 간 유사·중복 분석, 회의록 요약, 검토의견서 작성 등을 자동화한다.</div>
+        <div class="insight">10년간 축적된 국가 연구성과 DB(1,243만 건)가 AI의 학습 자산이 됐다. 공공 데이터가 AI를 통해 국가 의사결정 인프라로 전환되는 '데이터 기반 행정'의 첫 구체적 모델이다.</div>
+      </div>
+    </div>
+
+    <div class="card pub">
+      <div class="card-top">
+        <div class="num">2</div>
+        <div class="tw">
+          <div class="ct"><a href="https://www.ddaily.co.kr/page/view/2026051410304598135" target="_blank">"AI는 핵무기…한국 위상, AI 풀스택 구축 여부에 달렸다"</a></div>
+          <div class="cm"><span>디지털데일리</span><span>·</span><span>2026-05-14 13:52</span><span>·</span><span>과기정통부</span></div>
+        </div>
+      </div>
+      <div class="cb">
+        <div class="tags"><span class="tag">공공데이터-AI활용</span><span class="tag">한국AI규제-법제</span><span class="tag">AI인프라-데이터센터</span></div>
+        <div class="summary">AI WAVE 2026 세미나에서 과기정통부 인공지능정책실장이 "AI는 핵무기와 같은 지위를 갖게 될 것"이라며 독자 AI 풀스택 생태계 구축을 강조했다. 데이터센터·AI 반도체·파운데이션 모델을 아우르는 '독파모', 'K-문샷' 등 정책을 추진 중이다. 백도어 리스크 없는 소버린 AI 인프라 구축이 국가 안보 의제로 격상됐다.</div>
+        <div class="insight">AI 주권(Sovereign AI)의 핵심은 데이터와 인프라의 국산화다. 해외 AI 모델 의존도가 높아질수록 학습 데이터·추론 결과·시스템 제어권이 모두 외부에 종속되는 구조적 위험이 커진다.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div>
+  <div class="sec cross">🌐 AI × 데이터 교차</div>
+  <div class="news-grid" style="margin-top:12px">
+
+    <div class="card cross">
+      <div class="card-top">
+        <div class="num">3</div>
+        <div class="tw">
+          <div class="ct"><a href="https://zdnet.co.kr/view/?no=20260514204758" target="_blank">"사이버공격 속도전...AI, 하루에 취약점 1000개 이상 찾아"</a></div>
+          <div class="cm"><span>ZDNet Korea</span><span>·</span><span>2026-05-15 00:11</span><span>·</span><span>크리미널IP</span></div>
+        </div>
+      </div>
+      <div class="cb">
+        <div class="tags"><span class="tag">AI프라이버시</span><span class="tag">데이터거버넌스</span><span class="tag">AI에이전트-실시간데이터</span></div>
+        <div class="summary">AI 기반 공격이 고도화되면서 사이버 위협이 속도전의 시대로 진입했다. AI는 하루에 취약점 1,000개 이상을 발견하며 인간을 압도한다. ASM(공격 표면 관리) 기반 솔루션이 보안 담당자의 역할 재편을 이끌고 있다.</div>
+        <div class="insight">AI가 취약점 스캐닝·발견을 자동화하면서 보안 데이터의 생성 속도가 인간의 처리 한계를 넘어섰다. 실시간 취약점 데이터 수집·분류·대응 자동화 파이프라인 없이는 방어가 불가능한 환경이 됐다.</div>
+      </div>
+    </div>
+
+    <div class="card cross">
+      <div class="card-top">
+        <div class="num">4</div>
+        <div class="tw">
+          <div class="ct"><a href="https://www.ddaily.co.kr/page/view/2026051414080746328" target="_blank">다올티에스, 기업 규모 및 목적별 AI 플랫폼 '다올퓨전'으로 기업 AX 가속화</a></div>
+          <div class="cm"><span>디지털데일리</span><span>·</span><span>2026-05-15 06:00</span><span>·</span><span>다올티에스, Dell Technologies</span></div>
+        </div>
+      </div>
+      <div class="cb">
+        <div class="tags"><span class="tag">AI에이전트-실시간데이터</span><span class="tag">데이터거버넌스</span><span class="tag">AI투자</span></div>
+        <div class="summary">다올티에스가 인프라·데이터·플랫폼의 통합 설계를 강조하며 AI 올인원 플랫폼 '다올퓨전'을 발표했다. 생명보험사 사례에서 하루 500만 건 보험 문서를 96% 정확도로 처리하는 성과를 시연했다. 국내 AI 시장은 2026년 15조원에서 2030년 40조원으로 성장 전망이다.</div>
+        <div class="insight">기업 AI 도입의 핵심 장벽은 기술이 아닌 '신뢰·보안·인프라·인재'이며, 이는 데이터 품질과 통합 설계 문제로 귀결된다. AI 성과는 데이터 파이프라인 설계 수준에 따라 갈린다.</div>
+      </div>
+    </div>
+
+    <div class="card cross">
+      <div class="card-top">
+        <div class="num">5</div>
+        <div class="tw">
+          <div class="ct"><a href="https://techcrunch.com/2026/05/14/wirestock-raises-23m-to-supply-multi-modal-data-to-ai-labs/" target="_blank">Wirestock, 멀티모달 AI 학습 데이터 공급 사업으로 2,300만 달러 조달</a></div>
+          <div class="cm"><span>TechCrunch</span><span>·</span><span>2026-05-15 00:00 (KST)</span><span>·</span><span>Wirestock, Nava Ventures</span></div>
+        </div>
+      </div>
+      <div class="cb">
+        <div class="tags"><span class="tag">AI투자</span><span class="tag">데이터마켓플레이스</span><span class="tag">AI에이전트-실시간데이터</span></div>
+        <div class="summary">Wirestock이 Nava Ventures 주도 2,300만 달러 시리즈 A를 조달했다. 70만 명 아티스트로부터 이미지·비디오·3D 콘텐츠를 수집해 주요 AI 랩 6곳에 멀티모달 데이터를 공급하며, 연간 매출 4,000만 달러를 기록 중이다. 기여자들에게 1,500만 달러를 지급하는 크리에이터 중심 모델이다.</div>
+        <div class="insight">멀티모달 AI 학습 데이터 공급이 고성장 투자 영역으로 성숙했다. 크리에이터 네트워크를 AI 데이터 공급망으로 연결하는 마켓플레이스 모델이 데이터 수요 폭발에 새로운 해답을 제시하고 있다.</div>
+      </div>
+    </div>
+
+    <div class="card cross">
+      <div class="card-top">
+        <div class="num">6</div>
+        <div class="tw">
+          <div class="ct"><a href="https://techcrunch.com/2026/05/14/openai-says-codex-is-coming-to-your-phone/" target="_blank">OpenAI, Codex를 모바일로 확장…AI 코딩 에이전트 경쟁 격화</a></div>
+          <div class="cm"><span>TechCrunch</span><span>·</span><span>2026-05-15 06:58 (KST)</span><span>·</span><span>OpenAI, Anthropic</span></div>
+        </div>
+      </div>
+      <div class="cb">
+        <div class="tags"><span class="tag">AI에이전트-실시간데이터</span><span class="tag">AI투자</span></div>
+        <div class="summary">OpenAI가 ChatGPT 앱에 Codex를 통합해 모바일에서 개발 워크플로우를 원격 모니터링·관리할 수 있게 했다. iOS·Android 전 플랜에서 프리뷰 제공, 월간 사용자 300만 명(3개월 만에 5배 증가). Anthropic Claude Code와의 AI 코딩 에이전트 경쟁이 모바일로 확전됐다.</div>
+        <div class="insight">AI 코딩 에이전트의 모바일 확장은 개발 데이터(코드·테스트 결과·스크린샷)가 클라우드에서 실시간으로 에이전트와 사용자 사이를 오가는 구조를 의미한다. '상시 연결 AI 워크플로우'가 개발 환경의 표준이 되는 전환점이다.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div>
+  <div class="sec global">🌍 글로벌 AI 인프라·거버넌스</div>
+  <div class="news-grid" style="margin-top:12px">
+
+    <div class="card global">
+      <div class="card-top">
+        <div class="num">7</div>
+        <div class="tw">
+          <div class="ct"><a href="https://techcrunch.com/2026/05/14/cerebras-raises-5-5b-kicking-off-2026s-ipo-season-with-a-bang/" target="_blank">Cerebras, IPO 첫날 108% 급등…2026년 최대 빅테크 IPO</a></div>
+          <div class="cm"><span>TechCrunch</span><span>·</span><span>2026-05-15 02:30 (KST)</span><span>·</span><span>Cerebras, OpenAI, AWS, Nvidia</span></div>
+        </div>
+      </div>
+      <div class="cb">
+        <div class="tags"><span class="tag">AI투자</span><span class="tag">AI인프라-데이터센터</span><span class="tag">반도체</span></div>
+        <div class="summary">AI 칩 스타트업 Cerebras가 IPO 공모가 $185 대비 108% 급등하며 NASDAQ 상장, 시총 1,000억 달러를 돌파했다. 2025년 매출 $5.1억(YoY +76%), 순이익 흑자 전환. OpenAI와 $100억 규모 컴퓨팅 계약을 맺은 GPU 추론 특화 칩 기업이다.</div>
+        <div class="insight">Cerebras IPO는 AI 추론(inference) 인프라 수요가 독립적 투자 가치를 만들 만큼 성숙했음을 증명한다. AI 인프라 투자 사이클이 학습(training) 중심에서 추론(inference) 중심으로 이동하는 흐름의 상징적 이정표다.</div>
+      </div>
+    </div>
+
+    <div class="card global">
+      <div class="card-top">
+        <div class="num">8</div>
+        <div class="tw">
+          <div class="ct"><a href="https://www.theregister.com/personal-tech/2026/05/14/ai-to-infest-eight-in-ten-premium-phones-within-two-years/5240393" target="_blank">2027년까지 프리미엄 스마트폰 80%에 에이전틱 AI 탑재 전망</a></div>
+          <div class="cm"><span>The Register</span><span>·</span><span>2026-05-15 00:02 (KST)</span><span>·</span><span>Counterpoint Research, MediaTek, Qualcomm</span></div>
+        </div>
+      </div>
+      <div class="cb">
+        <div class="tags"><span class="tag">AI에이전트-실시간데이터</span><span class="tag">AI프라이버시</span><span class="tag">AI인프라-데이터센터</span></div>
+        <div class="summary">Counterpoint Research는 2027년까지 프리미엄 스마트폰 80% 이상이 에이전틱 AI를 탑재할 것으로 전망했다. MediaTek·Qualcomm이 독립 동작 AI 칩셋을 상용화하며 새로운 기술 사이클이 시작됐다. 2032년까지 웨어러블 기기의 80%도 AI 기능을 갖출 전망이다.</div>
+        <div class="insight">에이전틱 AI가 모바일·웨어러블로 확산되면 데이터 처리의 중심이 클라우드에서 엣지(단말)로 이동하는 '온디바이스 AI' 혁명이 가속된다. 개인 데이터의 기기 내 처리·학습이 확대되면서 프라이버시와 데이터 주권 이슈가 새로운 국면에 진입한다.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div>
+  <div class="sec trend">📈 오늘의 트렌드</div>
+  <div class="trend-grid" style="margin-top:12px">
+    <div class="tc">
+      <div class="tn">AI 주권(Sovereign AI) — 국가 안보 의제 격상 <span class="badge active">active</span></div>
+      <div class="td">과기정통부 "AI는 핵무기" 발언과 국가 R&D 데이터 1,243만 건을 활용한 예산심의 AI 도입이 같은 날 등장했다. 데이터·반도체·모델 풀스택 자립이 생존 전략으로 격상됐다. 관련 기사: 1, 2</div>
+    </div>
+    <div class="tc">
+      <div class="tn">멀티모달 데이터 마켓플레이스 성숙 <span class="badge active">active</span></div>
+      <div class="td">Wirestock(크리에이터 네트워크·연매출 $4,000만), Origin Lab(게임 데이터, 전일)이 연달아 대형 투자를 유치하며 AI 학습 데이터 공급망이 독립 산업으로 자리잡고 있다. 관련 기사: 5</div>
+    </div>
+    <div class="tc">
+      <div class="tn">AI 에이전트의 엣지 확산 — 모바일·웨어러블 <span class="badge emerging">emerging</span></div>
+      <div class="td">OpenAI Codex 모바일 확장, 스마트폰 80% AI 탑재 전망이 맞물리며 AI 에이전트의 활동 반경이 클라우드에서 엣지 단말로 확장되는 흐름이 가시화되고 있다. 관련 기사: 6, 8</div>
+    </div>
+    <div class="tc">
+      <div class="tn">AI 추론(Inference) 칩 투자 사이클 개막 <span class="badge active">active</span></div>
+      <div class="td">Cerebras의 $66B 상장은 AI 학습 중심의 Nvidia 독점 시대에서 추론 특화 칩 경쟁 시대로의 이행을 상징한다. 데이터를 빠르게 처리하는 추론 인프라에 대한 투자 수요가 독립 시장을 형성했다. 관련 기사: 7</div>
+    </div>
+  </div>
+</div>
+
+<div>
+  <div class="sec syn">🔍 종합 분석</div>
+  <div class="syn-box" style="margin-top:12px">
+    <p>오늘 뉴스의 핵심 축은 <strong>'AI 주권 경쟁과 데이터 인프라 성숙'</strong>이다.</p>
+    <h3>① 한국 정부가 AI를 안보 의제로 격상</h3>
+    <p>과기정통부 정책실장의 "AI는 핵무기" 발언과 국가 R&D 데이터 1,243만 건을 활용한 예산심의 AI 도입은 같은 날 나란히 등장했다. 데이터 주권 없는 AI 주권은 없다는 인식이 정책의 언어로 구체화되고 있다.</p>
+    <h3>② 데이터 공급망이 독립 산업으로 성숙</h3>
+    <p>Wirestock의 멀티모달 데이터 마켓플레이스(연매출 $4,000만), 어제의 Origin Lab(게임 데이터), Cerebras(추론 인프라)가 모두 대형 투자를 유치했다. AI 모델 자체보다 그 모델을 먹이는 데이터와 인프라에 투자가 몰리는 구조적 변화다.</p>
+    <h3>③ AI의 활동 반경이 클라우드에서 엣지로 확장</h3>
+    <p>OpenAI Codex 모바일, 스마트폰 80% AI 탑재 전망, 다올퓨전의 엔터프라이즈 통합이 모두 AI가 '특정 서버'에서 '모든 기기'로 분산되는 흐름을 가리킨다. 이 확산은 보안 위협도 함께 분산시키며, "AI, 하루에 취약점 1,000개 발견"이라는 경고가 더 무겁게 들리는 이유다.</p>
+    <p>전체적으로, <strong>데이터를 누가 소유하고, 어디서 처리하고, 어떻게 지키는가</strong>가 AI 시대 모든 경쟁의 핵심 변수가 되고 있다.</p>
+  </div>
+</div>
+
+<div class="footer">Generated by Claude AI · 2026-05-15 AI &amp; Data Daily Report</div>
+</div>
+</body>
+</html>

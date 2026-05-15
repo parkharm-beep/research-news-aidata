@@ -1,7 +1,7 @@
 ---
 title: AI 에이전트·실시간 데이터
 type: topic
-last_updated: 2026-05-11
+last_updated: 2026-05-14
 related: [데이터파이프라인, 엔터프라이즈AI, IBM, Confluent, Anthropic, Microsoft]
 ---
 
@@ -15,6 +15,9 @@ related: [데이터파이프라인, 엔터프라이즈AI, IBM, Confluent, Anthro
 |------|--------|------|
 | 2026-05-11 | IBM Think 2026: watsonx Orchestrate(멀티에이전트) + IBM Confluent(실시간 데이터 스트리밍) 결합 발표. AI 운영 모델 청사진 제시 | [sources/2026-05-11/raw_004.md](../../sources/2026-05-11/raw_004.md) |
 | 2026-05-11 | Microsoft 글로벌 AI 확산 보고서 내 Anthropic 금융 특화 AI 에이전트 언급. 버티컬 AI 에이전트 시장 경쟁 가속화 | [sources/2026-05-11/raw_007.md](../../sources/2026-05-11/raw_007.md) |
+| 2026-05-13 | 스탠퍼드 연구: AI 에이전트 간 이미지·음성을 텍스트로 변환 시 정확도 7.7%까지 추락. 원본 모달리티 보존 전달 시 52% 달성. '모달리티 네이티브 라우팅'이 핵심 설계 원칙으로 부상 | [sources/2026-05-14/raw_004.md](../../sources/2026-05-14/raw_004.md) |
+| 2026-05-13 | Origin Lab, 게임 데이터를 세계 모델 AI에 판매하는 마켓플레이스로 800만 달러 시드 조달. Lightspeed Ventures 주도. 물리 시뮬레이션 데이터 공급 병목 해소 모델 | [sources/2026-05-14/raw_007.md](../../sources/2026-05-14/raw_007.md) |
+| 2026-05-13 | Anthropic, Ramp 데이터 기준 비즈니스 고객 점유율 34.4%로 OpenAI(32.3%) 추월. 12개월간 9%→34% 급성장 | [sources/2026-05-14/raw_008.md](../../sources/2026-05-14/raw_008.md) |
 
 ## 핵심 인사이트
 
