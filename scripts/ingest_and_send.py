@@ -70,12 +70,13 @@ def get_password() -> str:
 def run_ingest(today: str) -> bool:
     """Claude Code CLI로 INGEST 실행."""
     log.info(f"INGEST 시작: {today}")
+    claude_cmd = "claude.cmd" if sys.platform == "win32" else "claude"
     result = subprocess.run(
-        ["claude", "--dangerously-skip-permissions", "-p", "오늘 리포트 만들어줘"],
+        [claude_cmd, "--dangerously-skip-permissions", "-p", "오늘 리포트 만들어줘"],
         cwd=str(BASE_DIR),
         capture_output=True,
         text=True,
-        timeout=600,       # 10분 타임아웃
+        timeout=1800,      # 30분 타임아웃
         encoding="utf-8",
     )
     if result.returncode != 0:
@@ -245,10 +246,17 @@ def send_report(today: str) -> bool:
 
 
 if __name__ == "__main__":
-    today = datetime.now().strftime("%Y-%m-%d")
+    import argparse
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--send-only", action="store_true", help="INGEST 생략, 이메일 발송만 수행")
+    parser.add_argument("--date", default=None, help="대상 날짜 (기본: 오늘, 형식: YYYY-MM-DD)")
+    args = parser.parse_args()
 
-    if not run_ingest(today):
-        sys.exit(1)
+    today = args.date or datetime.now().strftime("%Y-%m-%d")
+
+    if not args.send_only:
+        if not run_ingest(today):
+            sys.exit(1)
 
     if not send_report(today):
         sys.exit(1)
