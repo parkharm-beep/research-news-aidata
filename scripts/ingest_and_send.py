@@ -70,7 +70,7 @@ def get_password() -> str:
 def run_ingest(today: str) -> bool:
     """Claude Code CLI로 INGEST 실행."""
     log.info(f"INGEST 시작: {today}")
-    claude_cmd = "claude.cmd" if sys.platform == "win32" else "claude"
+    claude_cmd = "claude.exe" if sys.platform == "win32" else "claude"
     result = subprocess.run(
         [claude_cmd, "--dangerously-skip-permissions", "-p", "오늘 리포트 만들어줘"],
         cwd=str(BASE_DIR),
